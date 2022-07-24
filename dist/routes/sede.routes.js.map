@@ -1,0 +1,1 @@
+{"version":3,"file":"sede.routes.js","sourceRoot":"","sources":["../../src/routes/sede.routes.ts"],"names":[],"mappings":";;AAAA,qCAAgC;AAChC,oEAAiF;AAEjF,MAAM,MAAM,GAAG,IAAA,gBAAM,GAAE,CAAC;AAExB,MAAM,CAAC,KAAK,CAAC,GAAG,CAAC;KACZ,GAAG,CAAC,0BAAQ,CAAC;KACb,IAAI,CAAC,4BAAU,CAAC,CAAC;AAEtB,MAAM,CAAC,KAAK,CAAC,UAAU,CAAC;KACnB,GAAG,CAAC,4BAAU,CAAC,CAAC;AAErB,kBAAe,MAAM,CAAC"}
