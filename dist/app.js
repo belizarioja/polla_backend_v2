@@ -33,6 +33,7 @@ class App {
     }
     settings() {
         this.app.set('port', this.port || process.env.PORT || 5001);
+        this.app.set('server', process.env.SERVER || '/polla_backend_v2');
     }
     middlewares() {
         this.app.use((0, morgan_1.default)('dev'));
@@ -42,7 +43,7 @@ class App {
         }));
     }
     routes() {
-        this.app.use(index_routes_1.default);
+        this.app.use(this.app.get('server'), index_routes_1.default);
         this.app.use('/usuario', usuario_routes_1.default);
         this.app.use('/jornada', jornada_routes_1.default);
         this.app.use('/resultado', resultado_routes_1.default);
@@ -53,6 +54,7 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.app.listen(this.app.get('port'));
             console.log('Servidor en puerto ', this.app.get('port'));
+            console.log('Servidor en carpeta ', this.app.get('server'));
         });
     }
 }

@@ -24,6 +24,7 @@ export class App {
 
     private settings () {
         this.app.set('port', this.port || process.env.PORT || 5001);
+        this.app.set('server', process.env.SERVER || '/polla_backend_v2');
     }
 
     private middlewares () {
@@ -35,7 +36,7 @@ export class App {
     }
 
     private routes () {
-        this.app.use(IndexRoutes);
+        this.app.use(this.app.get('server'), IndexRoutes);
         this.app.use('/usuario', UsuarioRoutes);
         this.app.use('/jornada', JornadaRoutes);
         this.app.use('/resultado', ResultadoRoutes);
@@ -46,6 +47,7 @@ export class App {
     async listen () {
         await this.app.listen(this.app.get('port'));
         console.log('Servidor en puerto ', this.app.get('port'));
+        console.log('Servidor en carpeta ', this.app.get('server'));
     }
 
 }
