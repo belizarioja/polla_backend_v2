@@ -1,8 +1,8 @@
 import { App } from './app';
 
-function main () {
+async function main () {
     const app = new App(5000);
-    app.listen();
+    await app.listen();
 }
 
 main();

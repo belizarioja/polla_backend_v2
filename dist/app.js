@@ -44,11 +44,11 @@ class App {
     }
     routes() {
         this.app.use(this.app.get('server'), index_routes_1.default);
-        this.app.use('/usuario', usuario_routes_1.default);
-        this.app.use('/jornada', jornada_routes_1.default);
-        this.app.use('/resultado', resultado_routes_1.default);
-        this.app.use('/jugada', jugada_routes_1.default);
-        this.app.use('/sede', sede_routes_1.default);
+        this.app.use(this.app.get('server') + '/usuario', usuario_routes_1.default);
+        this.app.use(this.app.get('server') + '/jornada', jornada_routes_1.default);
+        this.app.use(this.app.get('server') + '/resultado', resultado_routes_1.default);
+        this.app.use(this.app.get('server') + '/jugada', jugada_routes_1.default);
+        this.app.use(this.app.get('server') + '/sede', sede_routes_1.default);
     }
     listen() {
         return __awaiter(this, void 0, void 0, function* () {

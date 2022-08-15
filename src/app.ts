@@ -37,11 +37,11 @@ export class App {
 
     private routes () {
         this.app.use(this.app.get('server'), IndexRoutes);
-        this.app.use('/usuario', UsuarioRoutes);
-        this.app.use('/jornada', JornadaRoutes);
-        this.app.use('/resultado', ResultadoRoutes);
-        this.app.use('/jugada', JugadaRoutes);
-        this.app.use('/sede', SedeRoutes);
+        this.app.use(this.app.get('server') + '/usuario', UsuarioRoutes);
+        this.app.use(this.app.get('server') + '/jornada', JornadaRoutes);
+        this.app.use(this.app.get('server') + '/resultado', ResultadoRoutes);
+        this.app.use(this.app.get('server') + '/jugada', JugadaRoutes);
+        this.app.use(this.app.get('server') + '/sede', SedeRoutes);
     }
 
     async listen () {
