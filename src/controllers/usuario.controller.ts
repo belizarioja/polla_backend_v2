@@ -7,8 +7,8 @@ import { connect } from '../database'
 import { User } from '../interface/Usuario'
 
 export async function getUsuarios (req: Request, res: Response): Promise<Response | void> {
+    const conn = await connect();
     try {
-        const conn = await connect();
         const sql = "SELECT a.co_usuario, a.tx_nombre, a.tx_usuario, a.tx_clave, a.co_rol, b.tx_rol, a.in_activa, c.co_sede, c.tx_sede ";
         const from = " FROM t_usuarios a, t_roles b , t_sedes c ";
         const where = " WHERE a.co_sede=c.co_sede AND a.co_rol = b.co_rol ";
@@ -18,17 +18,23 @@ export async function getUsuarios (req: Request, res: Response): Promise<Respons
     catch (e) {
         return res.status(500).send('Error listando usuarios: ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function getRoles (req: Request, res: Response): Promise<Response | void> {
+    const conn = await connect();
     try {
-        const conn = await connect();
         const sql = "SELECT * FROM t_roles ";
         const resp = await conn.query(sql);
         return res.json(resp[0]);
     }
     catch (e) {
         return res.status(500).send('Error Listando roles: ' + e);
+    }
+    finally {
+        conn.end();
     }
 }
 export async function getLogin (req: Request, res: Response): Promise<Response | void> {

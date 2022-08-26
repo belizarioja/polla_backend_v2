@@ -17,7 +17,6 @@ function getResultados(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_resultados ";
             const where = " WHERE co_jornada = ? ORDER BY 1 ASC ";
             const resp = yield conn.query(sql + where, [id]);
@@ -37,7 +36,6 @@ function createResultado(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const newResultado = req.body;
-            const conn = yield (0, database_1.connect)();
             const sql = "INSERT INTO  t_resultados SET ? ";
             yield conn.query(sql, [newResultado]);
             return res.status(200).send('Resultado creado con éxito');
@@ -57,7 +55,6 @@ function updateResultado(req, res) {
         try {
             const id = req.params.id;
             const { lugar, resultado } = req.body;
-            const conn = yield (0, database_1.connect)();
             const update = "UPDATE t_resultados ";
             let set = "";
             if (lugar === 1) {
@@ -87,7 +84,6 @@ function deleteResultado(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             yield conn.query('DELETE FROM t_resultados WHERE co_resultado = ?', [id]);
             return res.status(200).send('Resultado eliminado con éxito');
         }

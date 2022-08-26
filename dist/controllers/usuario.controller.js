@@ -15,8 +15,8 @@ exports.updateUsuario = exports.createUsuario = exports.getLogin = exports.getRo
 const database_1 = require("../database");
 function getUsuarios(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT a.co_usuario, a.tx_nombre, a.tx_usuario, a.tx_clave, a.co_rol, b.tx_rol, a.in_activa, c.co_sede, c.tx_sede ";
             const from = " FROM t_usuarios a, t_roles b , t_sedes c ";
             const where = " WHERE a.co_sede=c.co_sede AND a.co_rol = b.co_rol ";
@@ -26,19 +26,25 @@ function getUsuarios(req, res) {
         catch (e) {
             return res.status(500).send('Error listando usuarios: ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getUsuarios = getUsuarios;
 function getRoles(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_roles ";
             const resp = yield conn.query(sql);
             return res.json(resp[0]);
         }
         catch (e) {
             return res.status(500).send('Error Listando roles: ' + e);
+        }
+        finally {
+            conn.end();
         }
     });
 }

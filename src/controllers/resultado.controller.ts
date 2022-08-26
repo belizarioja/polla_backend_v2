@@ -8,7 +8,6 @@ export async function getResultados (req: Request, res: Response): Promise<Respo
     const conn = await connect();
     try {
         const id = req.params.id;
-        const conn = await connect();
         const sql = "SELECT * FROM t_resultados ";
         const where = " WHERE co_jornada = ? ORDER BY 1 ASC ";
         const resp = await conn.query(sql + where, [id]);
@@ -26,7 +25,6 @@ export async function createResultado (req: Request, res: Response) {
     const conn = await connect();
     try {
         const newResultado: Resultado = req.body;
-        const conn = await connect();
         const sql = "INSERT INTO  t_resultados SET ? ";
         await conn.query(sql, [newResultado]);
         return res.status(200).send('Resultado creado con éxito');
@@ -43,7 +41,6 @@ export async function updateResultado (req: Request, res: Response) {
     try {
         const id = req.params.id;
         const { lugar, resultado } = req.body;
-        const conn = await connect();
         const update = "UPDATE t_resultados ";
         let set = ""
         if (lugar === 1) {
@@ -71,7 +68,6 @@ export async function deleteResultado (req: Request, res: Response) {
     const conn = await connect();
     try {
         const id = req.params.id;
-        const conn = await connect();
         await conn.query('DELETE FROM t_resultados WHERE co_resultado = ?', [id]);
         return res.status(200).send('Resultado eliminado con éxito');
     }

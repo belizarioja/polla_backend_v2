@@ -24,8 +24,8 @@ export class App {
 
     private settings () {
         this.app.set('port', this.port || process.env.PORT || 5001);
-        this.app.set('server', process.env.SERVER || '');
-        // this.app.set('server', process.env.SERVER || '/polla_backend_v2');
+        // this.app.set('server', process.env.SERVER || '');
+        this.app.set('server', process.env.SERVER || '/polla_backend_v2');
     }
 
     private middlewares () {

@@ -8,7 +8,6 @@ export async function getJornadas (req: Request, res: Response): Promise<Respons
     const conn = await connect();
     try {
         const id = req.params.id;
-        const conn = await connect();
         const sql = "SELECT * FROM t_jornadas ";
         const where = " WHERE co_sede = ? ORDER BY 1 ASC ";
         const resp = await conn.query(sql + where, [id]);
@@ -26,7 +25,6 @@ export async function getJornadasActivas (req: Request, res: Response): Promise<
     const conn = await connect();
     try {
         const id = req.params.id;
-        const conn = await connect();
         const sql = "SELECT * FROM t_jornadas ";
         const where = " WHERE in_activa = 1 AND co_sede = ? ORDER BY 1 ASC ";
         const resp = await conn.query(sql + where, [id]);
@@ -44,7 +42,6 @@ export async function createJornada (req: Request, res: Response) {
     const conn = await connect();
     try {
         const newJornada: Jornada = req.body;
-        const conn = await connect();
         const sql = "INSERT INTO  t_jornadas SET ? ";
         await conn.query(sql, [newJornada]);
         return res.status(200).send('Jornada creada con éxito');
@@ -61,7 +58,6 @@ export async function updateJornada (req: Request, res: Response) {
     try {
         const id = req.params.id;
         const { in_activa } = req.body;
-        const conn = await connect();
         const update = "UPDATE t_jornadas ";
         const set = " SET in_activa = ? WHERE co_jornada = ? ";
         await conn.query(update + set, [in_activa, id]);

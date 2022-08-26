@@ -17,7 +17,6 @@ function getJornadas(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_jornadas ";
             const where = " WHERE co_sede = ? ORDER BY 1 ASC ";
             const resp = yield conn.query(sql + where, [id]);
@@ -37,7 +36,6 @@ function getJornadasActivas(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_jornadas ";
             const where = " WHERE in_activa = 1 AND co_sede = ? ORDER BY 1 ASC ";
             const resp = yield conn.query(sql + where, [id]);
@@ -57,7 +55,6 @@ function createJornada(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const newJornada = req.body;
-            const conn = yield (0, database_1.connect)();
             const sql = "INSERT INTO  t_jornadas SET ? ";
             yield conn.query(sql, [newJornada]);
             return res.status(200).send('Jornada creada con éxito');
@@ -77,7 +74,6 @@ function updateJornada(req, res) {
         try {
             const id = req.params.id;
             const { in_activa } = req.body;
-            const conn = yield (0, database_1.connect)();
             const update = "UPDATE t_jornadas ";
             const set = " SET in_activa = ? WHERE co_jornada = ? ";
             yield conn.query(update + set, [in_activa, id]);

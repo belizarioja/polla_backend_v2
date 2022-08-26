@@ -17,7 +17,6 @@ function getSedes(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const conn = yield (0, database_1.connect)();
         try {
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_sedes ";
             const resp = yield conn.query(sql);
             return res.json(resp[0]);
@@ -36,7 +35,6 @@ function createSede(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const newSede = req.body;
-            const conn = yield (0, database_1.connect)();
             yield conn.query('INSERT INTO t_sedes SET ?', [newSede]);
             return res.status(200).send('Sede creado con éxito');
         }

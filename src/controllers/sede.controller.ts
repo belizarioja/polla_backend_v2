@@ -9,7 +9,6 @@ import { Sede } from '../interface/Sede'
 export async function getSedes (req: Request, res: Response): Promise<Response | void> {
     const conn = await connect();
     try {
-        const conn = await connect();
         const sql = "SELECT * FROM t_sedes ";
         const resp = await conn.query(sql);
         return res.json(resp[0]);
@@ -26,7 +25,6 @@ export async function createSede (req: Request, res: Response) {
     const conn = await connect();
     try {
         const newSede: Sede = req.body;
-        const conn = await connect();
         await conn.query('INSERT INTO t_sedes SET ?', [newSede]);
         return res.status(200).send('Sede creado con éxito');
     } catch (e) {

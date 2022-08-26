@@ -17,7 +17,6 @@ function getJugadas(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_jugadas ";
             const where = " WHERE co_jornada = ? ORDER BY 1 ASC ";
             const resp = yield conn.query(sql + where, [id]);
@@ -37,7 +36,6 @@ function createJugada(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const { jornada, jugador, carrera1, carrera2, carrera3, carrera4, carrera5, carrera6, usuario } = req.body;
-            const conn = yield (0, database_1.connect)();
             const sql = "insert into t_jugadas (co_jornada, co_usuario, tx_jugador, nu_carrera1, nu_carrera2, nu_carrera3, nu_carrera4, nu_carrera5, nu_carrera6) ";
             const values = " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             yield conn.query(sql + values, [jornada, usuario, jugador, carrera1, carrera2, carrera3, carrera4, carrera5, carrera6]);
@@ -57,7 +55,6 @@ function updateJugada(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             const { carrera, resultado } = req.body;
             const update = "update t_jugadas ";
             let set = "";
@@ -97,7 +94,6 @@ function deleteJugada(req, res) {
         const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
-            const conn = yield (0, database_1.connect)();
             yield conn.query('DELETE FROM t_jugadas WHERE co_jugada = ?', [id]);
             return res.status(200).send('Jugada eliminada con éxito');
         }
