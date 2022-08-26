@@ -33,7 +33,8 @@ class App {
     }
     settings() {
         this.app.set('port', this.port || process.env.PORT || 5001);
-        this.app.set('server', process.env.SERVER || '/polla_backend_v2');
+        this.app.set('server', process.env.SERVER || '');
+        // this.app.set('server', process.env.SERVER || '/polla_backend_v2');
     }
     middlewares() {
         this.app.use((0, morgan_1.default)('dev'));

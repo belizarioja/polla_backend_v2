@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { connect } from '../database'
 
 export async function getJugadas (req: Request, res: Response): Promise<Response | void> {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -14,9 +15,13 @@ export async function getJugadas (req: Request, res: Response): Promise<Response
     catch (e) {
         return res.status(500).send('Error listando jugadas : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function createJugada (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const { jornada, jugador, carrera1, carrera2, carrera3, carrera4, carrera5, carrera6, usuario } = req.body;
         const conn = await connect();
@@ -28,8 +33,12 @@ export async function createJugada (req: Request, res: Response) {
     catch (e) {
         return res.status(500).send('Error creando resultado : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 export async function updateJugada (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -61,9 +70,13 @@ export async function updateJugada (req: Request, res: Response) {
     catch (e) {
         return res.status(500).send('Error editando jugada : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function deleteJugada (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -72,5 +85,8 @@ export async function deleteJugada (req: Request, res: Response) {
     }
     catch (e) {
         return res.status(500).send('Error eliminando jugada : ' + e);
+    }
+    finally {
+        conn.end();
     }
 }

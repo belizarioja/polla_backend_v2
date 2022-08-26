@@ -6,8 +6,8 @@ const password = '*pollahipica*'
 const database = 'hatogril_polla'
 
 /* const host = 'localhost'
-const user = 'usuario'
-const password = '*Casazea1234'
+const user = 'root'
+const password = ''
 const database = 'polla' */
 // const message = 'BD App ' + database + ' está conectada'
 

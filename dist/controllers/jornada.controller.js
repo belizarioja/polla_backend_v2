@@ -14,6 +14,7 @@ exports.updateJornada = exports.createJornada = exports.getJornadasActivas = exp
 const database_1 = require("../database");
 function getJornadas(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -25,11 +26,15 @@ function getJornadas(req, res) {
         catch (e) {
             return res.status(500).send('Error listando jornada : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getJornadas = getJornadas;
 function getJornadasActivas(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -41,11 +46,15 @@ function getJornadasActivas(req, res) {
         catch (e) {
             return res.status(500).send('Error listando jornada Activas : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getJornadasActivas = getJornadasActivas;
 function createJornada(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const newJornada = req.body;
             const conn = yield (0, database_1.connect)();
@@ -56,11 +65,15 @@ function createJornada(req, res) {
         catch (e) {
             return res.status(500).send('Error creando jornada : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.createJornada = createJornada;
 function updateJornada(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const { in_activa } = req.body;
@@ -72,6 +85,9 @@ function updateJornada(req, res) {
         }
         catch (e) {
             return res.status(500).send('Error editando jornada : ' + e);
+        }
+        finally {
+            conn.end();
         }
     });
 }

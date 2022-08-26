@@ -5,6 +5,7 @@ import { connect } from '../database'
 import { Resultado } from '../interface/Resultado'
 
 export async function getResultados (req: Request, res: Response): Promise<Response | void> {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -16,9 +17,13 @@ export async function getResultados (req: Request, res: Response): Promise<Respo
     catch (e) {
         return res.status(500).send('Error listando resultados : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function createResultado (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const newResultado: Resultado = req.body;
         const conn = await connect();
@@ -29,8 +34,12 @@ export async function createResultado (req: Request, res: Response) {
     catch (e) {
         return res.status(500).send('Error creando resultado : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 export async function updateResultado (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const { lugar, resultado } = req.body;
@@ -53,9 +62,13 @@ export async function updateResultado (req: Request, res: Response) {
     catch (e) {
         return res.status(500).send('Error editando resultado : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function deleteResultado (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -64,5 +77,8 @@ export async function deleteResultado (req: Request, res: Response) {
     }
     catch (e) {
         return res.status(500).send('Error creando resultado : ' + e);
+    }
+    finally {
+        conn.end();
     }
 }

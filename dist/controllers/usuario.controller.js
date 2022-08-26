@@ -45,9 +45,9 @@ function getRoles(req, res) {
 exports.getRoles = getRoles;
 function getLogin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const { usuario, clave } = req.body;
-            const conn = yield (0, database_1.connect)();
             // const fe_ult_acceso = moment().format('YYYY-MM-DD HH:mm:ss')
             const sql = "select a.co_usuario, a.tx_nombre, a.tx_usuario, a.tx_clave, a.co_rol, b.tx_rol, a.in_activa, c.co_sede, c.tx_sede ";
             const from = " from t_usuarios a, t_roles b , t_sedes c ";
@@ -58,32 +58,42 @@ function getLogin(req, res) {
         catch (e) {
             return res.status(500).send('Error Logueando ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getLogin = getLogin;
 function createUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const newUser = req.body;
-            const conn = yield (0, database_1.connect)();
             yield conn.query('INSERT INTO t_usuarios SET ?', [newUser]);
             return res.status(200).send('Usuario creado con éxito');
         }
         catch (e) {
             return res.status(500).send('Error Creando usuario: ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.createUsuario = createUsuario;
 function updateUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.postId;
-        const updatePost = req.body;
         const conn = yield (0, database_1.connect)();
-        yield conn.query('UPDATE posts set ? WHERE id = ?', [updatePost, id]);
-        res.json({
-            message: 'Post Updated'
-        });
+        try {
+            yield conn.query('UPDATE t_usuarios SET ?');
+            return res.status(200).send('Usuario ACTUALIZADO con éxito');
+        }
+        catch (e) {
+            return res.status(500).send('Error ACTUALIZANDO usuario: ' + e);
+        }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.updateUsuario = updateUsuario;

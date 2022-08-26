@@ -14,6 +14,7 @@ exports.deleteJugada = exports.updateJugada = exports.createJugada = exports.get
 const database_1 = require("../database");
 function getJugadas(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -25,11 +26,15 @@ function getJugadas(req, res) {
         catch (e) {
             return res.status(500).send('Error listando jugadas : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getJugadas = getJugadas;
 function createJugada(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const { jornada, jugador, carrera1, carrera2, carrera3, carrera4, carrera5, carrera6, usuario } = req.body;
             const conn = yield (0, database_1.connect)();
@@ -41,11 +46,15 @@ function createJugada(req, res) {
         catch (e) {
             return res.status(500).send('Error creando resultado : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.createJugada = createJugada;
 function updateJugada(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -77,11 +86,15 @@ function updateJugada(req, res) {
         catch (e) {
             return res.status(500).send('Error editando jugada : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.updateJugada = updateJugada;
 function deleteJugada(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -90,6 +103,9 @@ function deleteJugada(req, res) {
         }
         catch (e) {
             return res.status(500).send('Error eliminando jugada : ' + e);
+        }
+        finally {
+            conn.end();
         }
     });
 }

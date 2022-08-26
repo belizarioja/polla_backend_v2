@@ -5,6 +5,7 @@ import { connect } from '../database'
 import { Jornada } from '../interface/Jornada'
 
 export async function getJornadas (req: Request, res: Response): Promise<Response | void> {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -16,9 +17,13 @@ export async function getJornadas (req: Request, res: Response): Promise<Respons
     catch (e) {
         return res.status(500).send('Error listando jornada : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function getJornadasActivas (req: Request, res: Response): Promise<Response | void> {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const conn = await connect();
@@ -30,9 +35,13 @@ export async function getJornadasActivas (req: Request, res: Response): Promise<
     catch (e) {
         return res.status(500).send('Error listando jornada Activas : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 
 export async function createJornada (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const newJornada: Jornada = req.body;
         const conn = await connect();
@@ -43,8 +52,12 @@ export async function createJornada (req: Request, res: Response) {
     catch (e) {
         return res.status(500).send('Error creando jornada : ' + e);
     }
+    finally {
+        conn.end();
+    }
 }
 export async function updateJornada (req: Request, res: Response) {
+    const conn = await connect();
     try {
         const id = req.params.id;
         const { in_activa } = req.body;
@@ -56,5 +69,8 @@ export async function updateJornada (req: Request, res: Response) {
     }
     catch (e) {
         return res.status(500).send('Error editando jornada : ' + e);
+    }
+    finally {
+        conn.end();
     }
 }

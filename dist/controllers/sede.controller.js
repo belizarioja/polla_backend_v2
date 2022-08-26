@@ -15,6 +15,7 @@ exports.updateSede = exports.createSede = exports.getSedes = void 0;
 const database_1 = require("../database");
 function getSedes(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const conn = yield (0, database_1.connect)();
             const sql = "SELECT * FROM t_sedes ";
@@ -24,11 +25,15 @@ function getSedes(req, res) {
         catch (e) {
             return res.status(500).send('Error listando sedes: ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getSedes = getSedes;
 function createSede(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const newSede = req.body;
             const conn = yield (0, database_1.connect)();
@@ -38,19 +43,25 @@ function createSede(req, res) {
         catch (e) {
             return res.status(500).send('Error Creando sede: ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.createSede = createSede;
 function updateSede(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.postId;
             const updateSede = req.body;
-            const conn = yield (0, database_1.connect)();
             yield conn.query('UPDATE t_sedes set ? WHERE id = ?', [updateSede, id]);
         }
         catch (e) {
             return res.status(500).send('Error Actualizando sede: ' + e);
+        }
+        finally {
+            conn.end();
         }
     });
 }

@@ -14,6 +14,7 @@ exports.deleteResultado = exports.updateResultado = exports.createResultado = ex
 const database_1 = require("../database");
 function getResultados(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -25,11 +26,15 @@ function getResultados(req, res) {
         catch (e) {
             return res.status(500).send('Error listando resultados : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.getResultados = getResultados;
 function createResultado(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const newResultado = req.body;
             const conn = yield (0, database_1.connect)();
@@ -40,11 +45,15 @@ function createResultado(req, res) {
         catch (e) {
             return res.status(500).send('Error creando resultado : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.createResultado = createResultado;
 function updateResultado(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const { lugar, resultado } = req.body;
@@ -67,11 +76,15 @@ function updateResultado(req, res) {
         catch (e) {
             return res.status(500).send('Error editando resultado : ' + e);
         }
+        finally {
+            conn.end();
+        }
     });
 }
 exports.updateResultado = updateResultado;
 function deleteResultado(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
         try {
             const id = req.params.id;
             const conn = yield (0, database_1.connect)();
@@ -80,6 +93,9 @@ function deleteResultado(req, res) {
         }
         catch (e) {
             return res.status(500).send('Error creando resultado : ' + e);
+        }
+        finally {
+            conn.end();
         }
     });
 }
